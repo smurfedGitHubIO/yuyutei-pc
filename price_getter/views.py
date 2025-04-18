@@ -31,3 +31,7 @@ def get_value(request, deck):
         total += int(amt)*(get_price(card)//4)
     
     return HttpResponse(f'Total price of deck: {total}')
+
+# Identify trend price changes
+def get_trend(request):
+    return 0
