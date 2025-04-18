@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 import requests
 from bs4 import BeautifulSoup as bs
+import os
 
 def get_price(card_no):
     card_no = card_no.lower()
@@ -17,6 +18,16 @@ def get_price(card_no):
                 lowest = min(lowest, int(strongs[j].contents[0].split()[0].replace(',','')))
     return lowest
 
-def get_value(request):
-    card = "OP11-012"
-    return HttpResponse(f'Price of {card}: {get_price(card)}')
+def get_value(request, deck):
+    base_dir = os.path.dirname(__file__)
+    filename = os.path.join(base_dir, f'static/{deck}.deck')
+    file = open(filename, "r")
+    
+    whole_deck = file.read()
+    total = 0
+
+    for val in whole_deck.split('\n')[:-1]:
+        [amt, card] = val.split('x')
+        total += int(amt)*(get_price(card)//4)
+    
+    return HttpResponse(f'Total price of deck: {total}')
