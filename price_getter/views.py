@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.template import loader
 import requests
 from bs4 import BeautifulSoup as bs
 import os
@@ -26,11 +27,18 @@ def get_value(request, deck):
     whole_deck = file.read()
     total = 0
 
+    deck_dct = []
+
     for val in whole_deck.split('\n')[:-1]:
         [amt, card] = val.split('x')
-        total += int(amt)*(get_price(card)//4)
-    
-    return HttpResponse(f'Total price of deck: {total}')
+        price = int(amt)*(get_price(card)//4)
+        deck_dct.append({'card_name': card, 'card_price': price})
+        total += price
+    # template_path = "C:/Users/Justin Clyde/Documents/GitHub/yuyutei-pc/price_getter/templates/price_getter/index.html"
+    template = loader.get_template("price_getter/index.html")
+    context = {'cardslist': deck_dct}
+
+    return HttpResponse(template.render(context, request))
 
 # Identify trend price changes
 def get_trend(request):
