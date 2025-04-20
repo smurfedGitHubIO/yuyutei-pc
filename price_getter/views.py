@@ -36,7 +36,7 @@ def get_value(request, deck):
         total += price
     # template_path = "C:/Users/Justin Clyde/Documents/GitHub/yuyutei-pc/price_getter/templates/price_getter/index.html"
     template = loader.get_template("price_getter/index.html")
-    context = {'cardslist': deck_dct}
+    context = {'cardslist': deck_dct, 'total': total}
     print(deck_dct)
     return HttpResponse(template.render(context, request))
 
