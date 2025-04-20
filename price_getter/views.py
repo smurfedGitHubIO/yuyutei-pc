@@ -37,7 +37,7 @@ def get_value(request, deck):
     # template_path = "C:/Users/Justin Clyde/Documents/GitHub/yuyutei-pc/price_getter/templates/price_getter/index.html"
     template = loader.get_template("price_getter/index.html")
     context = {'cardslist': deck_dct}
-
+    print(deck_dct)
     return HttpResponse(template.render(context, request))
 
 # Identify trend price changes
