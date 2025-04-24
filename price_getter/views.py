@@ -1,8 +1,13 @@
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import render
 import requests
 from bs4 import BeautifulSoup as bs
 import os
+from django.core.files.base import ContentFile
+import base64
+import uuid
+from django.conf import settings
 
 def get_price(card_no):
     card_no = card_no.lower()
@@ -46,4 +51,25 @@ def get_trend(request):
 
 # Open camera and capture image
 def capture_image(request):
-    return 0
+    if request.method == 'POST':
+        image_data = request.POST.get('image_data')
+        if image_data:
+            # Remove the data URL prefix
+            format, imgstr = image_data.split(';base64,')
+            ext = format.split('/')[-1]
+            image_data = base64.b64decode(imgstr)
+    
+            # Generate a unique filename
+            file_name = f"{uuid.uuid4().hex}.{ext}"
+            file_path = os.path.join(settings.MEDIA_ROOT, file_name)
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    
+             # Save the image (example: saving to media folder)
+            with open(file_path, "wb") as f:
+                f.write(image_data)
+    
+                # Optionally, save the file path to your model
+                # model_instance = YourModel(image_field=file_name)
+                # model_instance.save()
+    
+    return render(request, 'price_getter/camera.html')
