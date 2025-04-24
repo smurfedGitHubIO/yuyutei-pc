@@ -43,3 +43,7 @@ def get_value(request, deck):
 # Identify trend price changes
 def get_trend(request):
     return 0
+
+# Open camera and capture image
+def capture_image(request):
+    return 0
