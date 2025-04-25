@@ -11,6 +11,7 @@ from django.conf import settings
 import timm
 import torch
 from PIL import Image
+from rembg import remove
 
 def get_price(card_no):
     card_no = card_no.lower()
@@ -79,11 +80,13 @@ def capture_image(request):
 
             with open(file_path, "wb") as f:
                 f.write(image_data)
-                f.close()
-            print(file_path)
+            
+            
             # Open image and convert to RGB (in case it's not)
             image = Image.open(file_path).convert('RGB')
-
+            output = remove(image)
+            output.save(file_path)
+            image = Image.open(file_path).convert('RGB')
             # Resize and preprocess image
             data_config = timm.data.resolve_model_data_config(model)
             transform = timm.data.create_transform(**data_config, is_training=False)
