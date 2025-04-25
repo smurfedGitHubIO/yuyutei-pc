@@ -2,10 +2,10 @@
     
 <form method="post">
     {% csrf_token %}
-    <video id="camera-stream" width="240" height="320" autoplay>
+    <video id="camera-stream" width="320" height="240" autoplay>
 </video>
     <button id="capture-button">Capture</button>
-    <canvas id="captured-image" width="240" height="320" style="display:none;"></canvas>
+    <canvas id="captured-image" width="320" height="240" style="display:none;"></canvas>
     <input type="hidden" id="image-data" name="image_data">
 </form>
 

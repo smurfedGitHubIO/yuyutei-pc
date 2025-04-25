@@ -79,7 +79,8 @@ def capture_image(request):
 
             with open(file_path, "wb") as f:
                 f.write(image_data)
-
+                f.close()
+            print(file_path)
             # Open image and convert to RGB (in case it's not)
             image = Image.open(file_path).convert('RGB')
 
