@@ -1,0 +1,8 @@
+{
+	"/": [],
+	"/about": [],
+	"/infrastructure": [],
+	"/infrastructure/[slug]": [
+		"src/routes/infrastructure/[slug]/+page.ts"
+	]
+}
