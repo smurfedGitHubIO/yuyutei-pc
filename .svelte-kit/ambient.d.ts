@@ -65,6 +65,7 @@ declare module '$env/static/private' {
 	export const npm_command: string;
 	export const npm_package_name: string;
 	export const npm_package_version: string;
+	export const npm_package_engines_node: string;
 	export const npm_package_json: string;
 	export const npm_lifecycle_event: string;
 	export const npm_lifecycle_script: string;
@@ -140,6 +141,7 @@ declare module '$env/dynamic/private' {
 		npm_command: string;
 		npm_package_name: string;
 		npm_package_version: string;
+		npm_package_engines_node: string;
 		npm_package_json: string;
 		npm_lifecycle_event: string;
 		npm_lifecycle_script: string;
